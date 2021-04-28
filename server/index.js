@@ -1,6 +1,6 @@
 const express = require('express'); //express 모듈을 가져온다. 다운 받았기 때문에 가능
 const app = express(); //새로운 express 앱을 만든다.
-const PORT = 8000; //서버 포트
+
 const bodyParser = require('body-parser'); //json body 정보
 const cookieParser = require('cookie-parser'); //쿠키
 const config = require('./config/key'); //비밀 정보 외부로 감추기
@@ -26,6 +26,10 @@ mongoose.connect(config.mongoURI, {
 }).then(() => console.log('MongoDB Connected...')).catch(err => console.log(err))
 
 app.get('/', (req, res) => res.send('Hello World!~~ 안녕하세요 추가'))
+
+app.get('/api/hello', (req, res) =>{
+    res.send("안녕하세요~")
+})
 
 //register router
 app.post('/api/users/register', (req, res) => {
@@ -100,5 +104,6 @@ app.get('/api/users/logout', auth, (req, res)=> {
     })
 })
 
+const PORT = 8000; //서버 포트
 
 app.listen(PORT, () => console.log(`Server is running at: ${PORT}!`)); // '아니고 `임!! 주의^^
